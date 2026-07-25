@@ -1,0 +1,454 @@
+/* Admin Panel and CRM CSS Stylesheet */
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--charcoal);
+  background-image: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.08) 0%, transparent 80%);
+  padding: 2rem;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--charcoal-light);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--shadow-lg);
+  color: var(--white);
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.loginHeader h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.loginHeader p {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.loginInput {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: var(--white) !important;
+}
+
+.loginInput:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2) !important;
+}
+
+/* CRM Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--ivory-dark);
+}
+
+.sidebar {
+  width: 260px;
+  background-color: var(--charcoal);
+  color: var(--white);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.brand span {
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--white);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--border-radius);
+  color: #ccc;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.menuItem:hover, .menuItemActive {
+  background-color: var(--charcoal-light);
+  color: var(--gold);
+}
+
+.logoutBtn {
+  margin-top: auto;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+  background: transparent;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #f87171;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 968px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .brand {
+    margin-bottom: 1.5rem;
+  }
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* Dashboard Content */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-family: var(--font-display);
+  color: var(--charcoal);
+}
+
+.dateDisplay {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Stats Section */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.statCard {
+  background-color: var(--white);
+  padding: 1.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: var(--ivory-dark);
+}
+
+.statCardGold::before { background-color: var(--gold); }
+.statCardBlue::before { background-color: var(--status-design); }
+.statCardGreen::before { background-color: var(--status-completed); }
+
+.statTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #777;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+/* CRM Table Card */
+.tableCard {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* Filters */
+.filters {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--ivory-dark);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filterInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ivory-dark);
+  border-radius: var(--border-radius);
+  background-color: var(--ivory);
+}
+
+.filterInput:focus {
+  border-color: var(--gold);
+  background-color: var(--white);
+}
+
+.csvBtn {
+  background-color: var(--charcoal);
+  color: var(--white);
+  border: 1px solid var(--charcoal);
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.csvBtn:hover {
+  background-color: var(--gold);
+  color: var(--charcoal);
+  border-color: var(--gold);
+}
+
+/* Table Design */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.table th {
+  background-color: var(--ivory);
+  padding: 1rem 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--ivory-dark);
+}
+
+.table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--ivory-dark);
+  vertical-align: middle;
+}
+
+.table tr:hover {
+  background-color: rgba(197, 168, 128, 0.03);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badgeLead { background-color: rgba(217, 119, 6, 0.1); color: var(--status-lead); }
+.badgeDesign { background-color: rgba(37, 99, 235, 0.1); color: var(--status-design); }
+.badgeConstruction { background-color: rgba(217, 119, 6, 0.1); color: var(--status-construction); }
+.badgeCompleted { background-color: rgba(22, 163, 74, 0.1); color: var(--status-completed); }
+.badgeCancelled { background-color: rgba(220, 38, 38, 0.1); color: var(--status-cancelled); }
+
+/* Table Actions */
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actionBtn {
+  background: transparent;
+  border: 1px solid var(--ivory-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.actionBtnEdit:hover {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: var(--charcoal);
+}
+
+.actionBtnDelete:hover {
+  background-color: rgba(220, 38, 38, 0.1);
+  border-color: var(--status-cancelled);
+  color: var(--status-cancelled);
+}
+
+/* Modal Popup Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.modalContent {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding: 2.5rem;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--ivory-dark);
+  padding-bottom: 1rem;
+}
+
+.modalHeader h3 {
+  font-size: 1.5rem;
+  color: var(--charcoal);
+}
+
+.modalClose {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.modalClose:hover {
+  color: var(--charcoal);
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--ivory-dark);
+  padding-top: 1.5rem;
+}
+
+.btnCancel {
+  background-color: transparent;
+  border: 1px solid var(--ivory-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnCancel:hover {
+  background-color: var(--ivory);
+}
+
+/* Empty State */
+.emptyState {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #777;
+}
+
+.emptyState p {
+  margin-bottom: 1.5rem;
+}
