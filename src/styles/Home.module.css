@@ -1165,22 +1165,24 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-  z-index: 99999;
+  z-index: 999999;
   transition: var(--transition);
   animation: whatsapp-float 6s ease-in-out infinite;
+  will-change: transform;
+  pointer-events: auto;
 }
 
 @keyframes whatsapp-float {
-  0% { transform: translate(0, 0px); }
-  25% { transform: translate(8px, -12px); }
-  50% { transform: translate(-5px, -20px); }
-  75% { transform: translate(-10px, -8px); }
-  100% { transform: translate(0, 0px); }
+  0% { transform: translate3d(0, 0px, 0); }
+  25% { transform: translate3d(8px, -12px, 0); }
+  50% { transform: translate3d(-5px, -20px, 0); }
+  75% { transform: translate3d(-10px, -8px, 0); }
+  100% { transform: translate3d(0, 0px, 0); }
 }
 
 .whatsappFloat:hover {
   animation-play-state: paused;
-  transform: translate(0, -10px) scale(1.1);
+  transform: translate3d(0, -10px, 0) scale(1.1);
   box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
 }
 
