@@ -75,6 +75,49 @@
   width: 100%;
 }
 
+.hamburgerBtn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  padding: 0;
+}
+
+.hamburgerBtn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--white);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.scrolled .hamburgerBtn span {
+  background-color: var(--charcoal);
+}
+
+.hamburgerBtnActive span {
+  background-color: var(--white) !important;
+}
+
+.hamburgerBtnActive span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerBtnActive span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.hamburgerBtnActive span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .btnPrimary {
   font-family: var(--font-btn);
   background-color: var(--olive);
@@ -1293,6 +1336,64 @@
 }
 
 @media (max-width: 768px) {
+  .hamburgerBtn {
+    display: flex;
+  }
+
+  .navLinks {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 285px;
+    height: 100vh;
+    background-color: rgba(26, 26, 26, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem;
+    z-index: 1050;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -5px 0 25px rgba(0,0,0,0.25);
+  }
+
+  .navLinksActive {
+    transform: translateX(0);
+  }
+
+  .navLinks .navLink {
+    color: var(--white) !important;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .portfolioGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .sliderContainer {
+    height: 320px;
+  }
+
+  .testimonialContainer {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .testimonialText {
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+
   .aboutGrid {
     grid-template-columns: 1fr;
     gap: 4rem;

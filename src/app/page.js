@@ -68,6 +68,11 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
 
+  // Dynamic database-driven data lists with static fallbacks
+  const [projectsList, setProjectsList] = useState(images.projects);
+  const [testimonialsList, setTestimonialsList] = useState(images.testimonials);
+  const [faqsList, setFaqsList] = useState(faqs);
+
   // Interactive component states
   const [activeFilter, setActiveFilter] = useState("all");
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -77,6 +82,49 @@ export default function Home() {
   const [showConsultModal, setShowConsultModal] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  // Load database content dynamically on mount
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const resProj = await fetch("/api/projects");
+        if (resProj.ok) {
+          const data = await resProj.json();
+          if (data && Array.isArray(data) && data.length > 0) {
+            setProjectsList(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load projects:", err);
+      }
+
+      try {
+        const resTest = await fetch("/api/testimonials");
+        if (resTest.ok) {
+          const data = await resTest.json();
+          if (data && Array.isArray(data) && data.length > 0) {
+            setTestimonialsList(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load testimonials:", err);
+      }
+
+      try {
+        const resFaq = await fetch("/api/faqs");
+        if (resFaq.ok) {
+          const data = await resFaq.json();
+          if (data && Array.isArray(data) && data.length > 0) {
+            setFaqsList(data);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load FAQs:", err);
+      }
+    }
+    loadData();
+  }, []);
 
   // Monitor scroll to add glass styling to header
   useEffect(() => {
@@ -170,8 +218,8 @@ export default function Home() {
   };
 
   const filteredProjects = activeFilter === "all"
-    ? images.projects
-    : images.projects.filter(p => p.type.toLowerCase().includes(activeFilter.toLowerCase()) || p.title.toLowerCase().includes(activeFilter.toLowerCase()));
+    ? projectsList
+    : projectsList.filter(p => p.type.toLowerCase().includes(activeFilter.toLowerCase()) || p.title.toLowerCase().includes(activeFilter.toLowerCase()));
 
   return (
     <>
@@ -182,15 +230,27 @@ export default function Home() {
           <div className={styles.logo}>
             PROMACON <span>Luxury</span>
           </div>
-          <nav className={styles.navLinks}>
-            <a href="#home" className={styles.navLink}>Home</a>
-            <a href="#about" className={styles.navLink}>About</a>
-            <a href="#services" className={styles.navLink}>Services</a>
-            <a href="#portfolio" className={styles.navLink}>Portfolio</a>
-            <a href="#process" className={styles.navLink}>Process</a>
-            <a href="#testimonials" className={styles.navLink}>Reviews</a>
-            <a href="#faq" className={styles.navLink}>FAQ</a>
-            <a href="#contact" className={styles.navLink}>Contact</a>
+          
+          {/* Mobile Hamburger Button */}
+          <button 
+            onClick={() => setShowMobileMenu(!showMobileMenu)} 
+            className={`${styles.hamburgerBtn} ${showMobileMenu ? styles.hamburgerBtnActive : ""}`}
+            aria-label="Toggle Navigation Menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav className={`${styles.navLinks} ${showMobileMenu ? styles.navLinksActive : ""}`}>
+            <a href="#home" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Home</a>
+            <a href="#about" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>About</a>
+            <a href="#services" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Services</a>
+            <a href="#portfolio" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Portfolio</a>
+            <a href="#process" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Process</a>
+            <a href="#testimonials" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Reviews</a>
+            <a href="#faq" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>FAQ</a>
+            <a href="#contact" className={styles.navLink} onClick={() => setShowMobileMenu(false)}>Contact</a>
           </nav>
         </div>
       </header>
@@ -454,30 +514,30 @@ export default function Home() {
 
           <div className={styles.testimonialContainer}>
             <div className={styles.testimonialRating}>
-              {"★".repeat(images.testimonials[activeTestimonial].rating)}
-              {"☆".repeat(5 - images.testimonials[activeTestimonial].rating)}
+              {"★".repeat(testimonialsList[activeTestimonial]?.rating || 5)}
+              {"☆".repeat(5 - (testimonialsList[activeTestimonial]?.rating || 5))}
             </div>
             <p className={styles.testimonialText}>
-              &ldquo;{images.testimonials[activeTestimonial].review}&rdquo;
+              &ldquo;{testimonialsList[activeTestimonial]?.review || ""}&rdquo;
             </p>
             <div className={styles.testimonialAuthor}>
               <div 
                 className={styles.authorImg} 
-                style={{ backgroundImage: `url(${images.testimonials[activeTestimonial].img})` }}
+                style={{ backgroundImage: `url(${testimonialsList[activeTestimonial]?.img || ""})` }}
               ></div>
-              <span className={styles.authorName}>{images.testimonials[activeTestimonial].name}</span>
-              <span className={styles.authorLoc}>{images.testimonials[activeTestimonial].role} &bull; {images.testimonials[activeTestimonial].loc}</span>
+              <span className={styles.authorName}>{testimonialsList[activeTestimonial]?.name || ""}</span>
+              <span className={styles.authorLoc}>{testimonialsList[activeTestimonial]?.role || ""} &bull; {testimonialsList[activeTestimonial]?.loc || ""}</span>
             </div>
 
             <div className={styles.carouselNav}>
               <button 
-                onClick={() => setActiveTestimonial((prev) => (prev === 0 ? images.testimonials.length - 1 : prev - 1))}
+                onClick={() => setActiveTestimonial((prev) => (prev === 0 ? testimonialsList.length - 1 : prev - 1))}
                 className={styles.carouselArrow}
               >
                 &larr;
               </button>
               <button 
-                onClick={() => setActiveTestimonial((prev) => (prev === images.testimonials.length - 1 ? 0 : prev + 1))}
+                onClick={() => setActiveTestimonial((prev) => (prev === testimonialsList.length - 1 ? 0 : prev + 1))}
                 className={styles.carouselArrow}
               >
                 &rarr;
@@ -544,7 +604,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ Accordions (21 FAQ items) */}
+      {/* FAQ Accordions */}
       <section id="faq" className={`${styles.section} ${styles.sectionDark}`}>
         <div className="container">
           <div className={styles.sectionHeader}>
@@ -555,7 +615,7 @@ export default function Home() {
           </div>
 
           <div className={styles.faqContainer}>
-            {faqs.map((faq, idx) => (
+            {faqsList.map((faq, idx) => (
               <div key={idx} className={styles.faqItem}>
                 <button 
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
